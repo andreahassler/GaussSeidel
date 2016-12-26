@@ -5,22 +5,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import logic.Plate;
+import persist.ReadTextFile;
 import present.MainPanel;
+
+import java.util.Arrays;
 
 /**************************************
  * Created by Andrea on 06.11.2016.
  **************************************/
 public class Main extends Application {
-
-
-        //Plate plate = new Plate(6,6);
-        //plate.fillArray();
-        //String s = plate.toString();
-        //System.out.println(s);
-       // Rod rod = new Rod(11);
-        //rod.fillArray();
-        //System.out.print(rod.toString());
-        //rod.gaussSeidelAlgorithm(0);
 
 
     @Override
@@ -46,13 +39,20 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Plate plate = new Plate(4,4);
+        /*Plate plate = new Plate(4,4);
         plate.fillArray();
         String s = plate.toString();
         System.out.println(s);
         plate.gaussSeidelAlgorithm(0);
+        System.out.println(plate.getTemperature());
         String a = plate.toString();
-        System.out.println(a);
+        System.out.println(a);*/
+        ReadTextFile readTextFile = new ReadTextFile();
+        Plate plate = new Plate(readTextFile.writeContent());
+        System.out.println(Arrays.deepToString(plate.getCoordinates()));
+
+
+
 
     }
     public static void main(String[] args) {

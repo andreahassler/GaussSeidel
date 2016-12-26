@@ -16,7 +16,7 @@ public class ApplicationContext {
     public ApplicationContext(String version, String name) {
         this.version = version;
         this.name = name;
-        plate = new Plate(3,3);
+        //plate = new Plate(3,3);
         //imageModel = new SimpleImageModel(gridData);
 
     }

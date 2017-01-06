@@ -1,64 +1,27 @@
 package logic;
 
-import java.util.Random;
+/**This interface models a one-dimensional rod.
+ * The data consists of double values.
+ * */
+public interface Rod {
 
-/**************************************
- * Created by Andrea on 06.11.2016.
- **************************************/
-public class Rod {
-    private double [] rodArray ;
-    public static final int MAX_ITERATIONS = 100;
-    int randomInt;
+    /**
+     * Fills a one-dimensional array with random numbers between 1 and 10
+     * @return a two dimensional array with filled cells
+     */
+    double[] fillArray();
 
-    public Rod(int i)
-    {
-        rodArray = new double [i];
-    }
+    /**
+     * Use the Gauss Seidel algorithm to calculate the values ​​in the cells.
+     * To calculate the neighbor temperatures at a point, you have to take the right and left neighbors.
+     * @param f_i: Heating at point i
+     * @return The temperature value at position i after execution of the GaussSeidel calculation
+     */
+    double gaussSeidelAlgorithm(double f_i);
 
-    void setTemperature(int indexI,  int temperature){
-        rodArray[indexI] = temperature;
-    }
-
-
-    public double[] fillArray()
-    {   double k=1;
-        for (int i = 0; i < rodArray.length; i++)
-        {
-            Random randomGenerator = new Random();
-
-            for (int idx = 1; idx <= 10; ++idx){
-                randomInt = randomGenerator.nextInt(11);
-            }
-                rodArray[i] = randomInt;
-                // rodArray [i][j] = gaussSeidelAlgorith(n,u,f) //wieoft Gauss, Temperaturwert bei i,Erhitzung am Punkt i
-        }
-        return rodArray;
-    }
-
-    public double gaussSeidelAlgorithm(double f) //int n wie oft Algorithmus machen
-    {
-        double temperature = 0.0;
-        for (int i = 1; i < rodArray.length-1; i++){
-            {
-                temperature =  (0.5) * ((rodArray[i-1] + rodArray[i+1])); //+ f));
-                rodArray[i-1]=  temperature;
-
-                System.out.println("");
-                System.out.print(temperature+ " ");
-                System.out.print(i);
-
-                }
-        }
-        return temperature;
-    }
-
-    public String toString()
-    {   StringBuilder aString = new StringBuilder();
-        for(int i = 0; i< rodArray.length; i++){
-            {
-                aString.append(" ").append(rodArray[i]);
-            }
-        }
-        return aString.toString();
-    }
+    /**
+     * Translates the memory location of a cell into a string
+     * @return The translated string of a cell
+     */
+    String toString();
 }

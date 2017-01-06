@@ -1,58 +1,31 @@
 package app;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import logic.Plate;
-import persist.ReadTextFile;
-import present.MainPanel;
-
+import logic.impl.MathParser;
+import logic.impl.SimplePlate2D;
+import persist.ConsoleInputReader;
+import persist.TextFileReader;
 import java.util.Arrays;
 
-/**************************************
- * Created by Andrea on 06.11.2016.
- **************************************/
-public class Main extends Application {
+    /**
+    *  In the main class, the core data structures are created, then the application is launched
+    */
 
+public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final String VERSION = "1.0";
-        final String NAME = "SliceView FX";
-        final int WINDOW_WIDTH = 1000;
-        final int WINDOW_HEIGHT = 800;
 
+        TextFileReader textFileReader = new TextFileReader();
+        ConsoleInputReader inputReader = new ConsoleInputReader();
+        MathParser mathParser = new MathParser(inputReader.getString());
 
-        // Create the core data structures
+        SimplePlate2D simplePlate = new SimplePlate2D(textFileReader.writeContent(), textFileReader, mathParser);
 
-        ApplicationContext applicationContext = new ApplicationContext(VERSION, NAME);
-
-        // Create the main user interface panel and provide it with the application context
-
-        Pane mainPane = new MainPanel(applicationContext, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-        // Create and show the window
-
-        Scene scene = new Scene(mainPane, WINDOW_WIDTH, WINDOW_HEIGHT);
-        primaryStage.setTitle(applicationContext.getName() + " - v" + applicationContext.getVersion());
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        /*Plate plate = new Plate(4,4);
-        plate.fillArray();
-        String s = plate.toString();
-        System.out.println(s);
-        plate.gaussSeidelAlgorithm(0);
-        System.out.println(plate.getTemperature());
-        String a = plate.toString();
-        System.out.println(a);*/
-        ReadTextFile readTextFile = new ReadTextFile();
-        Plate plate = new Plate(readTextFile.writeContent());
-        System.out.println(Arrays.deepToString(plate.getCoordinates()));
-
-
-
+        System.out.println(Arrays.deepToString(simplePlate.getCoordinates()));
+        simplePlate.gaussSeidelAlgorithm(0);
+        System.out.println(Arrays.deepToString(simplePlate.getCoordinates()));
 
     }
     public static void main(String[] args) {
